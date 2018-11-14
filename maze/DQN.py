@@ -1,7 +1,11 @@
 __author__ = ' Zhen Wang'
 import numpy as np
 import tensorflow as tf
-
+from sys import platform as sys_pf
+if sys_pf == 'darwin':
+    import matplotlib
+    matplotlib.use("TkAgg")
+    import matplotlib.pyplot as plt
 np.random.seed(1)
 tf.set_random_seed(1)
 
@@ -125,6 +129,13 @@ class DQN(object):
         self.epsilon = self.epsilon + self.epsilon_increment if self.epsilon < self.epsilon_max else self.epsilon_max
 
         self.step_counter += 1
+
+    def plot_cost(self):
+
+        plt.plot(np.arange(len(self.cost_his)), self.cost_his)
+        plt.ylabel('Cost')
+        plt.xlabel('training steps')
+        plt.show()
 
 
 
